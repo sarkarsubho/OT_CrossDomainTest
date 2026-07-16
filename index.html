@@ -35,7 +35,18 @@
 <script type="text/javascript" src="https://cdn.cookielaw.org/consent/019cb3b4-8e49-792b-b665-2dbd332391da/OtAutoBlock.js" ></script>
 <script src="https://cdn.cookielaw.org/consent/019cb3b4-8e49-792b-b665-2dbd332391da/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="019cb3b4-8e49-792b-b665-2dbd332391da" ></script>
 <script type="text/javascript">
-function OptanonWrapper() { }
+function OptanonWrapper() {
+  const originalFetch = window.fetch;
+  window.fetch = function(...args) {
+    console.log('Fetch called with:', args[0], args[1]);
+    
+    const [resource, config] = args;
+    const headers = config?.headers || {};
+    headers['kid'] = 006;
+    
+    return originalFetch(resource, { ...config, headers });
+  };
+}
 </script>
 <!-- OneTrust Cookies Consent Notice end for ot-cross-domain-test.vercel.app -->
 
