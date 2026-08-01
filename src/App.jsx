@@ -2,18 +2,22 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
+import AdCampaignPage from "./Pages/AdCampaignPage";
+import NotFound from "./Pages/NotFound";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-    <h1>
-      Welcome to AXA CMS
-    </h1>
-      <h1 className="read-the-docs">
-        This is the Demo app for testing Cross domain and cross device consent. 
-      </h1>
+      <Routes>
+        <Route path="/" element={<Home></Home>}></Route>
+        <Route
+          path="/adcampaign"
+          element={<AdCampaignPage></AdCampaignPage>}
+        ></Route>
+        <Route path="/*" element={<NotFound></NotFound>}></Route>
+      </Routes>
     </>
   );
 }
